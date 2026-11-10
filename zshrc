@@ -8,7 +8,6 @@ SAVEHIST=10000
 setopt appendhistory
 unsetopt beep
 setopt interactivecomments
-bindkey -v
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
 zstyle :compinstall filename '/home/meredith/.zshrc'
@@ -21,7 +20,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+ZSH_THEME="agnoster"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -83,7 +82,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git autojump ssh)
+plugins=(git autojump ssh docker)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -115,5 +114,12 @@ export EDITOR='nvim'
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-set -o vi
-##eval "$(oh-my-posh init zsh)"
+#eval "$(oh-my-posh init zsh)"
+bindkey -v
+bindkey '^R' history-incremental-pattern-search-backward
+
+if ! typeset -f starship_precmd > /dev/null; then
+    eval "$(starship init zsh)"  # Use 'bash' if on Bash
+fi
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
